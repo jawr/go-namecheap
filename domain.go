@@ -25,6 +25,8 @@ type DomainGetListResult struct {
 	Expires    string `xml:"Expires,attr"`
 	IsExpired  bool   `xml:"IsExpired,attr"`
 	IsLocked   bool   `xml:"IsLocked,attr"`
+	IsPremium  bool   `xml:"IsPremium,attr"`
+	IsOurDNS   bool   `xml:"IsOurDNS,attr"`
 	AutoRenew  bool   `xml:"AutoRenew,attr"`
 	WhoisGuard string `xml:"WhoisGuard,attr"`
 }
@@ -34,6 +36,8 @@ type DomainInfo struct {
 	ID         int        `xml:"ID,attr"`
 	Name       string     `xml:"DomainName,attr"`
 	Owner      string     `xml:"OwnerName,attr"`
+	IsOwner    bool       `xml:"IsOwner,attr"`
+	IsPremium  bool       `xml:"IsPremium,attr"`
 	Created    string     `xml:"DomainDetails>CreatedDate"`
 	Expires    string     `xml:"DomainDetails>ExpiredDate"`
 	IsExpired  bool       `xml:"IsExpired,attr"`

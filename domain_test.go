@@ -68,6 +68,8 @@ func TestDomainsGetList(t *testing.T) {
 		Expires:    "11/04/2015",
 		IsExpired:  false,
 		IsLocked:   false,
+		IsPremium:  false,
+		IsOurDNS:   false,
 		AutoRenew:  false,
 		WhoisGuard: "ENABLED",
 	}}
@@ -138,6 +140,8 @@ func TestDomainGetInfo(t *testing.T) {
 		Expires:   "11/04/2015",
 		IsExpired: false,
 		IsLocked:  false,
+		IsOwner:   true,
+		IsPremium: false,
 		AutoRenew: false,
 		DNSDetails: DNSDetails{
 			ProviderType:  "FREE",
