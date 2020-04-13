@@ -337,3 +337,231 @@ func TestDomainsRenew(t *testing.T) {
 		t.Errorf("DomainRenew returned %+v, want %+v", result, want)
 	}
 }
+
+func TestDomainsGetContacts(t *testing.T) {
+	setup()
+	defer teardown()
+
+	respXML := `
+    <?xml version="1.0" encoding="UTF-8"?>
+    <ApiResponse xmlns="http://api.namecheap.com/xml.response" Status="OK">
+      <Errors />
+      <RequestedCommand>namecheap.domains.getContacts</RequestedCommand>
+      <CommandResponse Type="namecheap.domains.getContacts">
+        <DomainContactsResult Domain="domain1.com" domainnameid="3152456">
+          <Registrant ReadOnly="false">
+            <OrganizationName>NameCheap.com</OrganizationName>
+            <JobTitle>Software Developer</JobTitle>
+            <FirstName>John</FirstName>
+            <LastName>Smith</LastName>
+            <Address1>8939 S. cross Blvd</Address1>
+            <Address2>ca 110-708</Address2>
+            <City>california</City>
+            <StateProvince>ca</StateProvince>
+            <StateProvinceChoice>P</StateProvinceChoice>
+            <PostalCode>90045</PostalCode>
+            <Country>US</Country>
+            <Phone>+1.6613102107</Phone>
+            <Fax>+1.6613102107</Fax>
+            <EmailAddress>john@gmail.com</EmailAddress>
+            <PhoneExt>+1.6613102</PhoneExt>
+          </Registrant>
+          <Tech ReadOnly="false">
+            <OrganizationName>NameCheap.com</OrganizationName>
+            <JobTitle>Software Developer</JobTitle>
+            <FirstName>John</FirstName>
+            <LastName>Smith</LastName>
+            <Address1>8939 S. cross Blvd</Address1>
+            <Address2>ca 110-708</Address2>
+            <City>california</City>
+            <StateProvince>ca</StateProvince>
+            <StateProvinceChoice>P</StateProvinceChoice>
+            <PostalCode>90045</PostalCode>
+            <Country>US</Country>
+            <Phone>+1.6613102107</Phone>
+            <Fax>+1.6613102107</Fax>
+            <EmailAddress>john@gmail.com</EmailAddress>
+            <PhoneExt>+1.6613102</PhoneExt>
+          </Tech>
+          <Admin ReadOnly="false">
+            <OrganizationName>NameCheap.com</OrganizationName>
+            <JobTitle>Software Developer</JobTitle>
+            <FirstName>John</FirstName>
+            <LastName>Smith</LastName>
+            <Address1>8939 S. cross Blvd</Address1>
+            <Address2>ca 110-708</Address2>
+            <City>california</City>
+            <StateProvince>ca</StateProvince>
+            <StateProvinceChoice>P</StateProvinceChoice>
+            <PostalCode>90045</PostalCode>
+            <Country>US</Country>
+            <Phone>+1.6613102107</Phone>
+            <Fax>+1.6613102107</Fax>
+            <EmailAddress>john@gmail.com</EmailAddress>
+            <PhoneExt>+1.6613102</PhoneExt>
+          </Admin>
+          <AuxBilling ReadOnly="false">
+            <OrganizationName>NameCheap.com</OrganizationName>
+            <JobTitle>Software Developer</JobTitle>
+            <FirstName>John</FirstName>
+            <LastName>Smith</LastName>
+            <Address1>8939 S. cross Blvd</Address1>
+            <Address2>ca 110-708</Address2>
+            <City>california</City>
+            <StateProvince>ca</StateProvince>
+            <StateProvinceChoice>P</StateProvinceChoice>
+            <PostalCode>90045</PostalCode>
+            <Country>US</Country>
+            <Phone>+1.6613102107</Phone>
+            <Fax>+1.6613102107</Fax>
+            <EmailAddress>john@gmail.com</EmailAddress>
+            <PhoneExt>+1.6613102</PhoneExt>
+          </AuxBilling>
+          <CurrentAttributes>
+            <RegistrantNexus>C11</RegistrantNexus>
+            <RegistrantNexusCountry />
+            <RegistrantPurpose>P1</RegistrantPurpose>
+          </CurrentAttributes>
+          <WhoisGuardContact>
+            <Registrant ReadOnly="true">
+              <OrganizationName>WhoisGuard</OrganizationName>
+              <JobTitle>Please contact protect@whoisguard.com for legal issues</JobTitle>
+              <FirstName>WhoisGuard</FirstName>
+              <LastName>Protected</LastName>
+              <Address1>11400 W. Olympic Blvd. Suite 200</Address1>
+              <Address2 />
+              <City>Los Angeles</City>
+              <StateProvince>CA</StateProvince>
+              <StateProvinceChoice>P</StateProvinceChoice>
+              <PostalCode>90064</PostalCode>
+              <Country>US</Country>
+              <Phone>+1.6613102107</Phone>
+              <Fax>+1.6613102107</Fax>
+              <EmailAddress>95fabfd2c51b4307bb626568.protect@whoisguard.com</EmailAddress>
+              <PhoneExt />
+            </Registrant>
+            <Tech ReadOnly="true">
+              <OrganizationName>WhoisGuard</OrganizationName>
+              <JobTitle>Please contact protect@whoisguard.com for legal issues</JobTitle>
+              <FirstName>WhoisGuard</FirstName>
+              <LastName>Protected</LastName>
+              <Address1>11400 W. Olympic Blvd. Suite 200</Address1>
+              <Address2 />
+              <City>Los Angeles</City>
+              <StateProvince>CA</StateProvince>
+              <StateProvinceChoice>P</StateProvinceChoice>
+              <PostalCode>90064</PostalCode>
+              <Country>US</Country>
+              <Phone>+1.6613102107</Phone>
+              <Fax>+1.6613102107</Fax>
+              <EmailAddress>95fabfd2c51b4307bb626568.protect@whoisguard.com</EmailAddress>
+              <PhoneExt />
+            </Tech>
+            <Admin ReadOnly="true">
+              <OrganizationName>WhoisGuard</OrganizationName>
+              <JobTitle>Please contact protect@whoisguard.com for legal issues</JobTitle>
+              <FirstName>WhoisGuard</FirstName>
+              <LastName>Protected</LastName>
+              <Address1>11400 W. Olympic Blvd. Suite 200</Address1>
+              <Address2 />
+              <City>Los Angeles</City>
+              <StateProvince>CA</StateProvince>
+              <StateProvinceChoice>P</StateProvinceChoice>
+              <PostalCode>90064</PostalCode>
+              <Country>US</Country>
+              <Phone>+1.6613102107</Phone>
+              <Fax>+1.6613102107</Fax>
+              <EmailAddress>95fabfd2c51b4307bb626568.protect@whoisguard.com</EmailAddress>
+              <PhoneExt />
+            </Admin>
+            <AuxBilling ReadOnly="true">
+              <OrganizationName>WhoisGuard</OrganizationName>
+              <JobTitle>Please contact protect@whoisguard.com for legal issues</JobTitle>
+              <FirstName>WhoisGuard</FirstName>
+              <LastName>Protected</LastName>
+              <Address1>11400 W. Olympic Blvd. Suite 200</Address1>
+              <Address2 />
+              <City>Los Angeles</City>
+              <StateProvince>CA</StateProvince>
+              <StateProvinceChoice>P</StateProvinceChoice>
+              <PostalCode>90064</PostalCode>
+              <Country>US</Country>
+              <Phone>+1.6613102107</Phone>
+              <Fax>+1.6613102107</Fax>
+              <EmailAddress>95fabfd2c51b4307bb626568.protect@whoisguard.com</EmailAddress>
+              <PhoneExt />
+            </AuxBilling>
+            <CurrentAttributes />
+          </WhoisGuardContact>
+        </DomainContactsResult>
+      </CommandResponse>
+      <Server>SERVER-NAME</Server>
+      <GMTTimeDifference>+5</GMTTimeDifference>
+      <ExecutionTime>0.078</ExecutionTime>
+    </ApiResponse>`
+
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		correctParams := fillDefaultParams(url.Values{})
+		correctParams.Set("Command", "namecheap.domains.getContacts")
+		correctParams.Set("DomainName", "domain1.com")
+		testBody(t, r, correctParams)
+		testMethod(t, r, "POST")
+		fmt.Fprint(w, respXML)
+	})
+
+	result, err := client.DomainGetContacts("domain1.com")
+	if err != nil {
+		t.Errorf("DomainRenew returned error: %v", err)
+	}
+
+	// DomainCheckResult we expect, given the respXML above
+	want := &DomainGetContactsResult{
+		DomainID: 3152456,
+		Name:     "domain1.com",
+		Registrant: Registrant{
+			RegistrantFirstName:     "John",
+			RegistrantLastName:      "Smith",
+			RegistrantAddress1:      "8939 S. cross Blvd",
+			RegistrantAddress2:      "ca 110-708",
+			RegistrantCity:          "california",
+			RegistrantStateProvince: "ca",
+			RegistrantPostalCode:    "90045",
+			RegistrantCountry:       "US",
+			RegistrantPhone:         "+1.6613102107",
+			RegistrantEmailAddress:  "john@gmail.com",
+			TechFirstName:           "John",
+			TechLastName:            "Smith",
+			TechAddress1:            "8939 S. cross Blvd",
+			TechAddress2:            "ca 110-708",
+			TechCity:                "california",
+			TechStateProvince:       "ca",
+			TechPostalCode:          "90045",
+			TechCountry:             "US",
+			TechPhone:               "+1.6613102107",
+			TechEmailAddress:        "john@gmail.com",
+			AdminFirstName:          "John",
+			AdminLastName:           "Smith",
+			AdminAddress1:           "8939 S. cross Blvd",
+			AdminAddress2:           "ca 110-708",
+			AdminCity:               "california",
+			AdminStateProvince:      "ca",
+			AdminPostalCode:         "90045",
+			AdminCountry:            "US",
+			AdminPhone:              "+1.6613102107",
+			AdminEmailAddress:       "john@gmail.com",
+			AuxBillingFirstName:     "John",
+			AuxBillingLastName:      "Smith",
+			AuxBillingAddress1:      "8939 S. cross Blvd",
+			AuxBillingAddress2:      "ca 110-708",
+			AuxBillingCity:          "california",
+			AuxBillingStateProvince: "ca",
+			AuxBillingPostalCode:    "90045",
+			AuxBillingCountry:       "US",
+			AuxBillingPhone:         "+1.6613102107",
+			AuxBillingEmailAddress:  "john@gmail.com",
+		},
+	}
+	if !reflect.DeepEqual(result, want) {
+		t.Errorf("DomainRenew returned %+v, want %+v", result, want)
+	}
+}

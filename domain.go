@@ -8,12 +8,13 @@ import (
 )
 
 const (
-	domainsGetList = "namecheap.domains.getList"
-	domainsGetInfo = "namecheap.domains.getInfo"
-	domainsCheck   = "namecheap.domains.check"
-	domainsCreate  = "namecheap.domains.create"
-	domainsTLDList = "namecheap.domains.getTldList"
-	domainsRenew   = "namecheap.domains.renew"
+	domainsGetList     = "namecheap.domains.getList"
+	domainsGetInfo     = "namecheap.domains.getInfo"
+	domainsCheck       = "namecheap.domains.check"
+	domainsCreate      = "namecheap.domains.create"
+	domainsTLDList     = "namecheap.domains.getTldList"
+	domainsRenew       = "namecheap.domains.renew"
+	domainsGetContacts = "namecheap.domains.getContacts"
 )
 
 // DomainGetListResult represents the data returned by 'domains.getList'
@@ -121,6 +122,13 @@ type DomainCreateOption struct {
 	ORGUKLegalType         string
 	ORGUKCompanyID         string
 	ORGUKRegisteredfor     string
+}
+
+type DomainGetContactsResult struct {
+	DomainID int    `xml:"domainnameid,attr"`
+	Name     string `xml:"Domain,attr"`
+
+	Registrant
 }
 
 func (client *Client) DomainsGetList(page int, pageSize int) ([]DomainGetListResult, *Paging, error) {
@@ -275,4 +283,20 @@ func (client *Client) DomainRenew(domainName string, years int) (*DomainRenewRes
 	}
 
 	return resp.DomainRenew, nil
+}
+
+func (client *Client) DomainGetContacts(domainName string) (*DomainGetContactsResult, error) {
+	requestInfo := &ApiRequest{
+		command: domainsGetContacts,
+		method:  "POST",
+		params:  url.Values{},
+	}
+	requestInfo.params.Set("DomainName", domainName)
+
+	resp, err := client.do(requestInfo)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp.DomainContacts, nil
 }

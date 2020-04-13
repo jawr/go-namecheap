@@ -13,25 +13,61 @@ import (
 // crate a new domain.
 // In order for `addValues` method to work, all fields must remain strings.
 type Registrant struct {
-	RegistrantFirstName, RegistrantLastName,
-	RegistrantAddress1, RegistrantAddress2, RegistrantCity,
-	RegistrantStateProvince, RegistrantPostalCode, RegistrantCountry,
-	RegistrantPhone, RegistrantEmailAddress,
+	RegistrantFirstName string `xml:"Registrant>FirstName"`
+	RegistrantLastName  string `xml:"Registrant>LastName"`
 
-	TechFirstName, TechLastName,
-	TechAddress1, TechAddress2,
-	TechCity, TechStateProvince, TechPostalCode, TechCountry,
-	TechPhone, TechEmailAddress,
+	RegistrantAddress1 string `xml:"Registrant>Address1"`
+	RegistrantAddress2 string `xml:"Registrant>Address2"`
+	RegistrantCity     string `xml:"Registrant>City"`
 
-	AdminFirstName, AdminLastName,
-	AdminAddress1, AdminAddress2,
-	AdminCity, AdminStateProvince, AdminPostalCode, AdminCountry,
-	AdminPhone, AdminEmailAddress,
+	RegistrantStateProvince string `xml:"Registrant>StateProvince"`
+	RegistrantPostalCode    string `xml:"Registrant>PostalCode"`
+	RegistrantCountry       string `xml:"Registrant>Country"`
 
-	AuxBillingFirstName, AuxBillingLastName,
-	AuxBillingAddress1, AuxBillingAddress2,
-	AuxBillingCity, AuxBillingStateProvince, AuxBillingPostalCode, AuxBillingCountry,
-	AuxBillingPhone, AuxBillingEmailAddress string
+	RegistrantPhone        string `xml:"Registrant>Phone"`
+	RegistrantEmailAddress string `xml:"Registrant>EmailAddress"`
+
+	TechFirstName string `xml:"Tech>FirstName"`
+	TechLastName  string `xml:"Tech>LastName"`
+
+	TechAddress1 string `xml:"Tech>Address1"`
+	TechAddress2 string `xml:"Tech>Address2"`
+	TechCity     string `xml:"Tech>City"`
+
+	TechStateProvince string `xml:"Tech>StateProvince"`
+	TechPostalCode    string `xml:"Tech>PostalCode"`
+	TechCountry       string `xml:"Tech>Country"`
+
+	TechPhone        string `xml:"Tech>Phone"`
+	TechEmailAddress string `xml:"Tech>EmailAddress"`
+
+	AdminFirstName string `xml:"Admin>FirstName"`
+	AdminLastName  string `xml:"Admin>LastName"`
+
+	AdminAddress1 string `xml:"Admin>Address1"`
+	AdminAddress2 string `xml:"Admin>Address2"`
+	AdminCity     string `xml:"Admin>City"`
+
+	AdminStateProvince string `xml:"Admin>StateProvince"`
+	AdminPostalCode    string `xml:"Admin>PostalCode"`
+	AdminCountry       string `xml:"Admin>Country"`
+
+	AdminPhone        string `xml:"Admin>Phone"`
+	AdminEmailAddress string `xml:"Admin>EmailAddress"`
+
+	AuxBillingFirstName string `xml:"AuxBilling>FirstName"`
+	AuxBillingLastName  string `xml:"AuxBilling>LastName"`
+
+	AuxBillingAddress1 string `xml:"AuxBilling>Address1"`
+	AuxBillingAddress2 string `xml:"AuxBilling>Address2"`
+	AuxBillingCity     string `xml:"AuxBilling>City"`
+
+	AuxBillingStateProvince string `xml:"AuxBilling>StateProvince"`
+	AuxBillingPostalCode    string `xml:"AuxBilling>PostalCode"`
+	AuxBillingCountry       string `xml:"AuxBilling>Country"`
+
+	AuxBillingPhone        string `xml:"AuxBilling>Phone"`
+	AuxBillingEmailAddress string `xml:"AuxBilling>EmailAddress"`
 }
 
 // newRegistrant return a new registrant where all the required fields are the same.
