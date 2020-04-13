@@ -49,6 +49,7 @@ type ApiResponse struct {
 	Command            string                    `xml:"RequestedCommand"`
 	TLDList            []TLDListResult           `xml:"CommandResponse>Tlds>Tld"`
 	AddressGetList     []AddressGetListResult    `xml:"CommandResponse>AddressGetListResult>List"`
+	AddressGetInfo     *AddressGetInfoResult     `xml:"CommandResponse>GetAddressInfoResult"`
 	Domains            []DomainGetListResult     `xml:"CommandResponse>DomainGetListResult>Domain"`
 	DomainInfo         *DomainInfo               `xml:"CommandResponse>DomainGetInfoResult"`
 	DomainDNSHosts     *DomainDNSGetHostsResult  `xml:"CommandResponse>DomainDNSGetHostsResult"`
